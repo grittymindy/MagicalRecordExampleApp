@@ -5,7 +5,6 @@ This is a working demo for using Magical Record in your app. I listed important 
 
 * setup Core Data stack
 * perform general background save tasks
-* background creation and update for an entity
 * use FRC to backup table view
 
 
