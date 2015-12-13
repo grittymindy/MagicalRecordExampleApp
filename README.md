@@ -1,5 +1,5 @@
 # MagicalRecordExampleApp
-[MagicalRecord](https://github.com/magicalpanda/MagicalRecord) is well known for adpoting Active Record pattern and proving  easy-to-use APIs for CURD operations.  
+[MagicalRecord](https://github.com/magicalpanda/MagicalRecord) is well known for adpoting Active Record pattern and providing  easy-to-use APIs for CURD operations.  
 
 This is a working demo for using Magical Record in your app. I listed important features including:  
 
