@@ -37,8 +37,9 @@
         return;
     }
     
-    //Background Creating, Updating, and Saving
+    /**Perform background save task**/
     [MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
+        //C(reate) in CURD
         Track *track = [Track MR_createInContext:localContext];
         track.trackName = self.trackNameField.text;
         track.artistName = self.artistNameField.text;

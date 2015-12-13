@@ -37,7 +37,7 @@
 #pragma mark - FRC
 - (NSFetchedResultsController *)frc{
     if(!_frc){
-        //Setup FRC in MR_defaultContext.
+        /**Setup FRC for backing up UITableView**/
         //FRC is always used as the data source of a table view, so it's always set up in MR_defaultContext, which is of NSMainQueueConcurrencyType.
         _frc = [Track MR_fetchAllSortedBy:@"trackName" ascending:YES withPredicate:nil groupBy:nil delegate:self inContext:[NSManagedObjectContext MR_defaultContext]];
     }
@@ -66,6 +66,14 @@
     cell.artistNameLabel.text = track.artistName;
     
     return cell;
+}
+
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    Track *track = [self.frc objectAtIndexPath:indexPath];
+    //D(elete) in CURD
+    [track MR_deleteEntity];
+    [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreWithCompletion:nil];
 }
 
 @end

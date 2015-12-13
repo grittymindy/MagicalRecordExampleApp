@@ -17,7 +17,7 @@
         MPMediaQuery *songsQuery = [MPMediaQuery songsQuery];
         NSArray *allMediaItems = [songsQuery items];
         
-        //Background Fetch, Create, Update, and Save
+        /**Perform general background save task**/
         [MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
             [allMediaItems enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                 MPMediaItem *mediaItem = (MPMediaItem *)obj;
@@ -25,10 +25,17 @@
                 NSString *artistName = [mediaItem valueForProperty:MPMediaItemPropertyArtist];
                 NSString *albumName = [mediaItem valueForProperty:MPMediaItemPropertyAlbumTitle];
                 NSNumber *persistentId = [mediaItem valueForProperty:MPMediaEntityPropertyPersistentID];
+                //R(etrieve) in CURD
                 Track *track = [Track MR_findFirstByAttribute:@"trackID" withValue:persistentId inContext:localContext];
                 if(!track){
+                    //C(reate) in CURD
                     track  = [Track MR_createInContext:localContext];
                     track.trackID =  [NSString stringWithFormat:@"%@", persistentId];
+                    track.trackName = trackName;
+                    track.artistName = artistName;
+                    track.albumName = albumName;
+                }else{
+                    //U(pdate) in CURD
                     track.trackName = trackName;
                     track.artistName = artistName;
                     track.albumName = albumName;
